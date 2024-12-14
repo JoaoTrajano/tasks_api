@@ -1,10 +1,21 @@
 import { Injectable } from "@nestjs/common";
+import { UseCase } from "../usecase";
+
+type CreateTaskUseCaseInput = {
+  title: string
+  description: string
+}
+
+type CreateTaskUseCaseOutput = {
+  status: string
+}
 
 @Injectable()
-export class CreateTaskUseCase {
-  constructor() {}
+export class CreateTaskUseCase implements UseCase<CreateTaskUseCaseInput, CreateTaskUseCaseOutput> {
 
-  get teste(): string {
-    return 'teste'
+  async execute(data: CreateTaskUseCaseInput): Promise<CreateTaskUseCaseOutput> {
+    console.log(data)
+    return await {status: 'ok'}
   }
+ 
 }

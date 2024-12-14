@@ -7,7 +7,9 @@ export class TaskController {
   constructor(private readonly createTaskUseCase: CreateTaskUseCase) {}
 
   @Get()
-  teste(): string {
-    return this.createTaskUseCase.teste
+  async teste(): Promise<string> {
+    const {status} = await this.createTaskUseCase.execute({title: 'teste', description: ''})
+
+    return status
   }
 }
