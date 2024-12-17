@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
+import { Task } from "domain/entities/task.entity";
+import { TaskRepository } from "infrastructure/database/repositories/task.repository";
+
 import { UseCase } from "../usecase";
-import { TaskRepository } from "src/infrastructure/database/repositories/task.repository";
 
 type CreateTaskUseCaseInput = {
   title: string;
@@ -8,7 +10,7 @@ type CreateTaskUseCaseInput = {
 };
 
 type CreateTaskUseCaseOutput = {
-  status: string;
+  task: Task;
 };
 
 @Injectable()
@@ -18,9 +20,11 @@ export class CreateTaskUseCase
   constructor(private readonly taskRepository: TaskRepository) {}
 
   async execute(
-    data: CreateTaskUseCaseInput
+    input: CreateTaskUseCaseInput
   ): Promise<CreateTaskUseCaseOutput> {
-    console.log(data);
-    return await { status: "ok" };
+    const task = new Task(input.description, input.title);
+
+    const taskCreated = await this.taskRepository.save(task);
+    return { task: taskCreated };
   }
 }

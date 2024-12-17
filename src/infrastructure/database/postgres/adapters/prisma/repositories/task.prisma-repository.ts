@@ -1,14 +1,29 @@
-import { TaskRepository } from "src/infrastructure/database/repositories/task.repository";
+import { Task } from "domain/entities/task.entity";
+import { TaskRepository } from "infrastructure/database/repositories/task.repository";
+
+import { TaskPrismaMapper } from "../mappers/task.prisma-mapper";
 import { PrismaService } from "../prisma.service";
 
 export class TaskPrismaRepository implements TaskRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async save(): Promise<void> {}
+  async save(task: Task): Promise<Task> {
+    const taskCreated = await this.prismaService.task.create({
+      data: TaskPrismaMapper.toPersistence(task),
+    });
 
-  async delete(): Promise<void> {}
+    return TaskPrismaMapper.toDomain(taskCreated);
+  }
 
-  async fetchAll(): Promise<void> {}
+  async delete(id: string): Promise<void> {}
 
-  async fetchById(): Promise<void> {}
+  async fetchAll(): Promise<Task[]> {
+    const tasks = await this.prismaService.task.findMany({});
+    return tasks.map(TaskPrismaMapper.toDomain);
+  }
+
+  async fetchById(id: string): Promise<Task | null> {
+    const task = await this.prismaService.task.findUnique({ where: { id } });
+    return task ? TaskPrismaMapper.toDomain(task) : null;
+  }
 }

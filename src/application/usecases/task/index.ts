@@ -1,1 +1,1 @@
-export * from "src/application/usecases/task/create-task.usecase";
+export * from "application/usecases/task/create-task.usecase";

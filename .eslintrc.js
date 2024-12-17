@@ -3,32 +3,33 @@ module.exports = {
   parserOptions: {
     project: "tsconfig.json",
     tsconfigRootDir: __dirname,
-    sourceType: "module"
+    sourceType: "module",
+    ecmaVersion: "latest",
   },
-  plugins: ["@typescript-eslint", "prettier"],
+  plugins: ["@typescript-eslint", "prettier", "simple-import-sort"],
   extends: [
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
   ],
   root: true,
   env: {
     node: true,
-    jest: true
+    jest: true,
   },
   rules: {
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "comma-dangle": ["error", "never"],
-
     "prettier/prettier": [
       "error",
       {
-        trailingComma: "none",
+        trailingComma: "all",
         singleQuote: false,
-        semi: true
-      }
-    ]
-  }
+        semi: true,
+      },
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+  },
 };

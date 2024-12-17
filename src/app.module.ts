@@ -1,9 +1,10 @@
 import { Module } from "@nestjs/common";
+import { EnvModule } from "infrastructure/database/env/env.module";
 
 import { HttpModule } from "./presentation/http.module";
 
 @Module({
-  imports: [HttpModule],
+  imports: [EnvModule, HttpModule],
   controllers: [],
   providers: [],
 })

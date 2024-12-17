@@ -1,6 +1,8 @@
+import { Task } from "domain/entities/task.entity";
+
 export abstract class TaskRepository {
-  abstract save(): Promise<void>;
-  abstract delete(): Promise<void>;
-  abstract fetchAll(): Promise<void>;
-  abstract fetchById(): Promise<void>;
+  abstract save(task: Task): Promise<Task>;
+  abstract delete(id: string): Promise<void>;
+  abstract fetchAll(): Promise<Task[]>;
+  abstract fetchById(id: string): Promise<Task | null>;
 }

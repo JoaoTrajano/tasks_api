@@ -1,1 +1,1 @@
-export * from "src/presentation/controllers/task.controller";
+export * from "presentation/controllers/task.controller";

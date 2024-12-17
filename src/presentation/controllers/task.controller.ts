@@ -1,18 +1,24 @@
-import { Controller, Get } from "@nestjs/common";
+import { Body, Controller, Post, UsePipes } from "@nestjs/common";
+import { CreateTaskUseCase } from "application/usecases/task";
+import { Task } from "domain/entities/task.entity";
 
-import { CreateTaskUseCase } from "src/application/usecases/task";
+import {
+  CreateTaskBody,
+  CreateTaskBodyPipe,
+} from "../pipes/create-task-validations";
 
 @Controller()
 export class TaskController {
   constructor(private readonly createTaskUseCase: CreateTaskUseCase) {}
 
-  @Get()
-  async teste(): Promise<string> {
-    const { status } = await this.createTaskUseCase.execute({
-      title: "teste",
-      description: "",
+  @Post()
+  @UsePipes(CreateTaskBodyPipe)
+  async create(@Body() body: CreateTaskBody): Promise<Task> {
+    const { task } = await this.createTaskUseCase.execute({
+      title: body.title,
+      description: body.description,
     });
 
-    return status;
+    return task;
   }
 }

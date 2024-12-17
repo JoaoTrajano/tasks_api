@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
+import { CreateTaskUseCase } from "application/usecases/task";
+import { DataBaseModule } from "infrastructure/database/database.module";
 
 import { TaskController } from "./controllers";
-import { CreateTaskUseCase } from "src/application/usecases/task";
-import { DataBaseModule } from "src/infrastructure/database/database.module";
 
 @Module({
   imports: [DataBaseModule],
