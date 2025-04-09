@@ -3,7 +3,9 @@ import { TaskRepository } from 'tasks/domain/repositories/task.repository';
 
 import { TaskPrismaMapper } from '../mappers/task.prisma-mapper';
 import { PrismaService } from '@/shared/infrastructure/database/postgres/adapters/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class TaskPrismaRepository implements TaskRepository {
   constructor(private readonly prismaService: PrismaService) {}
 

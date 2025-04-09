@@ -5,9 +5,9 @@ import {
   FetchAllTasksUseCase,
 } from './application/use-cases';
 import { TaskRepository } from './domain/repositories/task.repository';
-import { PrismaService } from '../shared/infrastructure/database/postgres/adapters/prisma/prisma.service';
 import { TaskController } from './presentation/controllers/task.controller';
 import { TaskPrismaRepository } from './infrastructure/database/repositories/task.prisma-repository';
+import { PrismaService } from '@/shared/infrastructure/database/postgres/adapters/prisma/prisma.service';
 
 @Module({
   controllers: [TaskController],
@@ -20,5 +20,6 @@ import { TaskPrismaRepository } from './infrastructure/database/repositories/tas
       useClass: TaskPrismaRepository,
     },
   ],
+  exports: [TaskRepository],
 })
 export class TasksModule {}

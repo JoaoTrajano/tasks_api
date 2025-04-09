@@ -2,6 +2,7 @@ import { TaskEntity } from 'tasks/domain/entities/task.entity';
 import { TaskRepository } from 'tasks/domain/repositories/task.repository';
 
 import { UseCase } from '../use-case.interface';
+import { Injectable } from '@nestjs/common';
 
 type CreateTaskUseCaseInput = {
   title: string;
@@ -12,6 +13,7 @@ type CreateTaskUseCaseOutput = {
   task: TaskEntity;
 };
 
+@Injectable()
 export class CreateTaskUseCase
   implements UseCase<CreateTaskUseCaseInput, CreateTaskUseCaseOutput>
 {
