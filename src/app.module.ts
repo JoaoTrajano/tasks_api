@@ -1,10 +1,9 @@
-import { Module } from "@nestjs/common";
-import { EnvModule } from "infrastructure/database/env/env.module";
-
-import { HttpModule } from "./presentation/http.module";
+import { Module } from '@nestjs/common';
+import { EnvModule } from '@/shared/infrastructure/env/env.module';
+import { TasksModule } from 'tasks/tasks.module';
 
 @Module({
-  imports: [EnvModule, HttpModule],
+  imports: [EnvModule, TasksModule],
   controllers: [],
   providers: [],
 })
