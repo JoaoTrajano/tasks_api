@@ -9,12 +9,25 @@ import { Injectable } from '@nestjs/common';
 export class TaskPrismaRepository implements TaskRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async save(task: TaskEntity): Promise<TaskEntity> {
+  async create(task: TaskEntity): Promise<TaskEntity> {
     const taskCreated = await this.prismaService.task.create({
       data: TaskPrismaMapper.toPersistence(task),
     });
 
     return TaskPrismaMapper.toDomain(taskCreated);
+  }
+
+  async update(task: TaskEntity): Promise<TaskEntity> {
+    const taskUpdated = await this.prismaService.task.update({
+      where: { id: task.id },
+      data: {
+        title: task.title,
+        description: task.description,
+        completedAt: task.completedAt,
+      },
+    });
+
+    return TaskPrismaMapper.toDomain(taskUpdated);
   }
 
   async delete(id: string): Promise<void> {
@@ -24,7 +37,9 @@ export class TaskPrismaRepository implements TaskRepository {
   async fetch(title?: string, description?: string): Promise<TaskEntity[]> {
     const where = {};
 
-    if (title) Object.assign(where, { title });
+    if (title)
+      Object.assign(where, { title: { contains: title, mode: 'insensitive' } });
+
     if (description) Object.assign(where, { description });
 
     const tasks = await this.prismaService.task.findMany({

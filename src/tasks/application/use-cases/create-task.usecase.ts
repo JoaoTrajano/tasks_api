@@ -24,7 +24,7 @@ export class CreateTaskUseCase
   ): Promise<CreateTaskUseCaseOutput> {
     const task = new TaskEntity(input.description, input.title);
 
-    const taskCreated = await this.taskRepository.save(task);
+    const taskCreated = await this.taskRepository.create(task);
     return { task: taskCreated };
   }
 }

@@ -1,6 +1,5 @@
+import { ZodValidationPipe } from '@/shared/pipes/zod-validation';
 import { z } from 'zod';
-
-import { ZodValidationPipe } from '../zod-validation';
 
 const createTaskSchema = z.object({
   title: z.string(),
