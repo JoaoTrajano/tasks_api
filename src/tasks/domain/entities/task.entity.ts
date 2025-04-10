@@ -12,7 +12,7 @@ export class TaskEntity extends Entity {
     this.completedAt = null;
   }
 
-  markAsCompleted(): void {
+  public markAsCompleted(): void {
     this.completedAt = new Date();
   }
 }
