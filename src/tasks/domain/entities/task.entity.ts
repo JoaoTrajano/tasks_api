@@ -11,4 +11,8 @@ export class TaskEntity extends Entity {
     this.title = title;
     this.completedAt = null;
   }
+
+  markAsCompleted(): void {
+    this.completedAt = new Date();
+  }
 }

@@ -25,7 +25,7 @@ export class UpdateCompletedTaskUseCase
     const taskFound = await this.taskRepository.fetchById(input.id);
     if (!taskFound) throw new Error('Task not found');
 
-    taskFound.completedAt = new Date();
+    taskFound.markAsCompleted();
 
     const taskUpdated = await this.taskRepository.update(taskFound);
     return { task: taskUpdated };
