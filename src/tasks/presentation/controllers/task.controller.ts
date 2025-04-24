@@ -11,14 +11,13 @@ import {
   Query,
   UsePipes,
 } from '@nestjs/common';
-
 import {
   CreateTaskBody,
   CreateTaskBodyPipe,
   FetchTasksQueryParams,
   FetchTasksQueryParamsPipe,
 } from 'tasks/presentation/pipes/validations';
-import { UpdateTaskBody } from '../pipes/validations/update-task';
+
 import {
   CreateTaskUseCase,
   DeleteTaskUseCase,
@@ -26,6 +25,8 @@ import {
   UpdateCompletedTaskUseCase,
   UpdateTaskUseCase,
 } from '@/tasks/application/use-cases';
+
+import { UpdateTaskBody } from '../pipes/validations/update-task';
 
 @Controller('tasks')
 export class TaskController {

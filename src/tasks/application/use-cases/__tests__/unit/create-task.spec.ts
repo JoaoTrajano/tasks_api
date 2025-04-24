@@ -1,6 +1,8 @@
 import { beforeAll, describe, expect, it } from 'vitest';
-import { CreateTaskUseCase } from '../../create-task.usecase';
+
 import { TaskInMemoryRepository } from '@/tasks/infrastructure/database/in-memory/repositories/task-in-memory-repository';
+
+import { CreateTaskUseCase } from '../../create-task.usecase';
 
 let sut: CreateTaskUseCase;
 let repo: TaskInMemoryRepository;

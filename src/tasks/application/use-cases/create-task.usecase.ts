@@ -1,7 +1,9 @@
-import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 import { Injectable } from '@nestjs/common';
-import { UseCase } from '../use-case.interface';
+
+import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 import { TaskRepository } from '@/tasks/domain/repositories/task.repository';
+
+import { UseCase } from '../use-case.interface';
 
 type CreateTaskUseCaseInput = {
   title: string;

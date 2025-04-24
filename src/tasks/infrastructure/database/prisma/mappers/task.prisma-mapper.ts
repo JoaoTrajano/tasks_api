@@ -1,5 +1,6 @@
-import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 import { Prisma, Task as PrismaClientTask } from '@prisma/client';
+
+import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 
 export class TaskPrismaMapper {
   static toDomain(entity: PrismaClientTask): TaskEntity {
@@ -9,7 +10,7 @@ export class TaskPrismaMapper {
     taskEntitie.createdAt = entity.createdAt;
     taskEntitie.updatedAt = entity.updatedAt;
 
-    return taskEntitie
+    return taskEntitie;
   }
 
   static toPersistence(entity: TaskEntity): Prisma.TaskUncheckedCreateInput {

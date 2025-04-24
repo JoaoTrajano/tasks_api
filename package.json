@@ -4,6 +4,7 @@
   "author": "João Trajano de Souza Neto",
   "private": true,
   "license": "ISC",
+  "type": "module",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

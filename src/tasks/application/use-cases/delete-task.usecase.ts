@@ -1,6 +1,8 @@
-import { TaskRepository } from '@/tasks/domain/repositories/task.repository';
-import { UseCase } from '../use-case.interface';
 import { Injectable } from '@nestjs/common';
+
+import { TaskRepository } from '@/tasks/domain/repositories/task.repository';
+
+import { UseCase } from '../use-case.interface';
 
 type DeleteTaskUseCaseInput = {
   id: string;

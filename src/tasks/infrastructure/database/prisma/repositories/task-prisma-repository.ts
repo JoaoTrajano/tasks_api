@@ -1,8 +1,10 @@
-import { TaskPrismaMapper } from '../mappers/task.prisma-mapper';
+import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from '@/shared/infrastructure/database/postgres/adapters/prisma/prisma.service';
 import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 import { TaskRepository } from '@/tasks/domain/repositories/task.repository';
-import { Injectable } from '@nestjs/common';
+
+import { TaskPrismaMapper } from '../mappers/task.prisma-mapper';
 
 @Injectable()
 export class TaskPrismaRepository implements TaskRepository {

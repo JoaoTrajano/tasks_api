@@ -4,6 +4,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { AppModule } from 'app.module';
+
 import { EnvService } from '@/shared/infrastructure/env/env.service';
 
 async function bootstrap() {
