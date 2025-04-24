@@ -1,8 +1,7 @@
-import { TaskEntity } from 'tasks/domain/entities/task.entity';
-import { TaskRepository } from 'tasks/domain/repositories/task.repository';
-
-import { UseCase } from '../use-case.interface';
+import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 import { Injectable } from '@nestjs/common';
+import { UseCase } from '../use-case.interface';
+import { TaskRepository } from '@/tasks/domain/repositories/task.repository';
 
 type CreateTaskUseCaseInput = {
   title: string;
@@ -22,6 +21,9 @@ export class CreateTaskUseCase
   async execute(
     input: CreateTaskUseCaseInput,
   ): Promise<CreateTaskUseCaseOutput> {
+    if (!input.title) throw new Error('Title is required');
+    if (!input.description) throw new Error('Description is required');
+
     const task = new TaskEntity(input.description, input.title);
 
     const taskCreated = await this.taskRepository.create(task);

@@ -1,4 +1,4 @@
-import { Entity } from 'shared/domain/entity';
+import { Entity } from '@/shared/domain/entity';
 
 export class TaskEntity extends Entity {
   public description: string;
