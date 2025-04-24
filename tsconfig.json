@@ -13,13 +13,13 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": [
-        "./*"
+        "*"
       ],
       "@tasks/*": [
         "tasks/*"
       ],
-      "shared/*": [
-        "@shared/*"
+      "@shared/*": [
+        "shared/*"
       ]
     },
     "incremental": false,

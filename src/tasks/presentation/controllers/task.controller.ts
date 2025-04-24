@@ -12,21 +12,19 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import {
-  CreateTaskBody,
-  CreateTaskBodyPipe,
-  FetchTasksQueryParams,
-  FetchTasksQueryParamsPipe,
-} from 'tasks/presentation/pipes/validations';
-
-import {
   CreateTaskUseCase,
   DeleteTaskUseCase,
   FetchAllTasksUseCase,
   UpdateCompletedTaskUseCase,
   UpdateTaskUseCase,
-} from '@/tasks/application/use-cases';
-
-import { UpdateTaskBody } from '../pipes/validations/update-task';
+} from '@tasks/application/use-cases';
+import {
+  CreateTaskBody,
+  CreateTaskBodyPipe,
+  FetchTasksQueryParams,
+  FetchTasksQueryParamsPipe,
+  UpdateTaskBody,
+} from '@tasks/presentation/pipes/validations';
 
 @Controller('tasks')
 export class TaskController {
@@ -39,6 +37,7 @@ export class TaskController {
   ) {}
 
   @Post()
+  @HttpCode(204)
   @UsePipes(CreateTaskBodyPipe)
   async createTask(@Body() body: CreateTaskBody) {
     const { task } = await this.createTaskUseCase.execute({
