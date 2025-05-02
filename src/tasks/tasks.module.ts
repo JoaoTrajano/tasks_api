@@ -16,17 +16,52 @@ import { TaskController } from './presentation/controllers/task.controller';
 @Module({
   controllers: [TaskController],
   providers: [
-    PrismaService,
     {
-      provide: TaskRepository,
-      useClass: TaskPrismaRepository,
+      provide: 'PrismaService',
+      useClass: PrismaService,
     },
-    CreateTaskUseCase,
-    FetchAllTasksUseCase,
-    UpdateTaskUseCase,
-    DeleteTaskUseCase,
-    UpdateCompletedTaskUseCase,
+    {
+      provide: 'TaskRepository',
+      useFactory: (prismaService: PrismaService) => {
+        return new TaskPrismaRepository(prismaService);
+      },
+      inject: ['PrismaService'],
+    },
+    {
+      provide: 'CreateTaskUseCase',
+      useFactory: (taskRepository: TaskRepository) => {
+        return new CreateTaskUseCase(taskRepository);
+      },
+      inject: ['TaskRepository'],
+    },
+    {
+      provide: 'FetchAllTasksUseCase',
+      useFactory: (taskRepository: TaskRepository) => {
+        return new FetchAllTasksUseCase(taskRepository);
+      },
+      inject: ['TaskRepository'],
+    },
+    {
+      provide: 'UpdateTaskUseCase',
+      useFactory: (taskRepository: TaskRepository) => {
+        return new UpdateTaskUseCase(taskRepository);
+      },
+      inject: ['TaskRepository'],
+    },
+    {
+      provide: 'DeleteTaskUseCase',
+      useFactory: (taskRepository: TaskRepository) => {
+        return new DeleteTaskUseCase(taskRepository);
+      },
+      inject: ['TaskRepository'],
+    },
+    {
+      provide: 'UpdateCompletedTaskUseCase',
+      useFactory: (taskRepository: TaskRepository) => {
+        return new UpdateCompletedTaskUseCase(taskRepository);
+      },
+      inject: ['TaskRepository'],
+    },
   ],
-  exports: [TaskRepository],
 })
 export class TasksModule {}

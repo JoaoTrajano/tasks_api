@@ -1,12 +1,14 @@
-import { defineConfig } from 'vitest/config';
 import { resolve } from 'node:path';
+
+import swc from 'unplugin-swc';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
+    include: ['**/*.e2e-spec.ts'],
     globals: true,
-    environment: 'node',
-    include: ['src/**/*.spec.ts'],
-    setupFiles: [],
+    root: './',
+    setupFiles: ['./src/test/setup-e2e.ts'],
   },
   plugins: [
     swc.vite({

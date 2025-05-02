@@ -7,21 +7,11 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   async onModuleInit() {
+    console.log('Usando DATABASE_URL:', process.env.DATABASE_URL);
     await this.$connect();
   }
 
   async onModuleDestroy() {
     await this.$disconnect();
-  }
-
-  async cleanDatabase() {
-    const modelKeys = Reflect.ownKeys(this) as Array<keyof PrismaClient>;
-
-    for (const modelKey of modelKeys) {
-      const model = this[modelKey];
-
-      if (typeof model === 'object' && model !== null && 'deleteMany' in model)
-        await model.deleteMany();
-    }
   }
 }

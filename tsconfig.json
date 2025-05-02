@@ -9,17 +9,10 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
       "@/*": [
-        "*"
-      ],
-      "@tasks/*": [
-        "tasks/*"
-      ],
-      "@shared/*": [
-        "shared/*"
+        "src/*"
       ]
     },
     "incremental": false,
@@ -30,8 +23,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
   },
+  "types": [
+    "vitest/globals",
+  ],
   "include": [
     "src/**/*",
-    ".eslintrc.js"
   ]
 }

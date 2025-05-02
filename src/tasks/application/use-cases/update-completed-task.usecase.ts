@@ -1,5 +1,3 @@
-import { Injectable } from '@nestjs/common';
-
 import { TaskEntity } from '@/tasks/domain/entities/task.entity';
 import { TaskRepository } from '@/tasks/domain/repositories/task.repository';
 
@@ -13,7 +11,6 @@ type UpdateCompletedTaskUseCaseOutput = {
   task: TaskEntity;
 };
 
-@Injectable()
 export class UpdateCompletedTaskUseCase
   implements
     UseCase<UpdateCompletedTaskUseCaseInput, UpdateCompletedTaskUseCaseOutput>

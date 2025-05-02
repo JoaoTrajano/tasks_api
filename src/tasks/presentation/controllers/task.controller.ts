@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  Inject,
   Param,
   Patch,
   Post,
@@ -11,33 +12,40 @@ import {
   Query,
   UsePipes,
 } from '@nestjs/common';
+
 import {
   CreateTaskUseCase,
   DeleteTaskUseCase,
   FetchAllTasksUseCase,
   UpdateCompletedTaskUseCase,
   UpdateTaskUseCase,
-} from '@tasks/application/use-cases';
+} from '@/tasks/application/use-cases';
+
 import {
   CreateTaskBody,
   CreateTaskBodyPipe,
   FetchTasksQueryParams,
   FetchTasksQueryParamsPipe,
   UpdateTaskBody,
-} from '@tasks/presentation/pipes/validations';
+} from '../pipes/validations';
 
 @Controller('tasks')
 export class TaskController {
   constructor(
+    @Inject('CreateTaskUseCase')
     private readonly createTaskUseCase: CreateTaskUseCase,
+    @Inject('UpdateTaskUseCase')
     private readonly updateTaskUseCase: UpdateTaskUseCase,
+    @Inject('DeleteTaskUseCase')
     private readonly deleteTaskUseCase: DeleteTaskUseCase,
+    @Inject('FetchAllTasksUseCase')
     private readonly fetchTasksUseCase: FetchAllTasksUseCase,
+    @Inject('UpdateCompletedTaskUseCase')
     private readonly updateCompletedTaskUseCase: UpdateCompletedTaskUseCase,
   ) {}
 
   @Post()
-  @HttpCode(204)
+  @HttpCode(201)
   @UsePipes(CreateTaskBodyPipe)
   async createTask(@Body() body: CreateTaskBody) {
     const { task } = await this.createTaskUseCase.execute({

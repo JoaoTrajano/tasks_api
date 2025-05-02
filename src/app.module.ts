@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { TasksModule } from '@tasks/tasks.module';
 
-import { EnvModule } from '@/shared/infrastructure/env/env.module';
+import { SharedModule } from './shared/shared.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
-  imports: [EnvModule, TasksModule],
+  imports: [SharedModule, TasksModule],
   controllers: [],
   providers: [],
 })
