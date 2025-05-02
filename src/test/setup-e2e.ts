@@ -11,13 +11,12 @@ config({ path: '.env', override: true });
 config({ path: '.env.test', override: true });
 
 const env = envSchema.parse(process.env);
-
 const prisma = new PrismaClient();
+const schemaId = randomUUID();
 
 function generateUniqueDatabaseURL(schemaId: string) {
-  if (!env.DATABASE_URL) {
+  if (!env.DATABASE_URL)
     throw new Error('Please provider a DATABASE_URL environment variable');
-  }
 
   const url = new URL(env.DATABASE_URL);
   url.searchParams.set('schema', schemaId);
@@ -25,19 +24,14 @@ function generateUniqueDatabaseURL(schemaId: string) {
   return url.toString();
 }
 
-const schemaId = randomUUID();
-
 beforeAll(async () => {
-  const databaseURL = generateUniqueDatabaseURL(schemaId);
-
-  process.env.DATABASE_URL = databaseURL;
-
+  process.env.DATABASE_URL = generateUniqueDatabaseURL(schemaId);
   execSync(
     'pnpm prisma migrate deploy --schema=./src/shared/infrastructure/database/postgres/adapters/prisma/schema.prisma',
   );
 });
 
 afterAll(async () => {
-  // await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`);
+  await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`);
   await prisma.$disconnect();
 });

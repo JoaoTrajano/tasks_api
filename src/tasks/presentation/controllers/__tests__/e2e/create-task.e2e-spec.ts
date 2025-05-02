@@ -1,12 +1,14 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { afterAll, beforeAll, describe, test } from 'vitest';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
 import { AppModule } from '@/app.module';
+import { PrismaService } from '@/shared/infrastructure/database/postgres/adapters/prisma/prisma.service';
 
 describe('CreateTaskController e2e test', () => {
   let app: INestApplication;
+  let prismaService: PrismaService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -15,6 +17,8 @@ describe('CreateTaskController e2e test', () => {
 
     app = moduleRef.createNestApplication();
     app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+    prismaService = moduleRef.get(PrismaService);
 
     await app.init();
   });
@@ -29,10 +33,16 @@ describe('CreateTaskController e2e test', () => {
         title: 'New task',
         description: 'This is a new task',
       });
-      console.log(res.body);
-      console.log('teste');
-      // expect(res.statusCode).toBe(201);
-      // expect(res.text).toContain('Hello');
+
+      const hasTask = await prismaService.task.findFirst({
+        where: {
+          title: 'New task',
+          description: 'This is a new task',
+        },
+      });
+
+      expect(res.statusCode).toBe(201);
+      expect(hasTask).toBeTruthy();
     });
   });
 });
