@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitest/config';
 import { resolve } from 'node:path';
+import swc from 'unplugin-swc';
 
 export default defineConfig({
   test: {
