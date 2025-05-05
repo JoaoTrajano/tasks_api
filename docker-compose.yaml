@@ -26,7 +26,6 @@ services:
       - DATABASE_URL=postgres://user:123456@postgres:5432/tasks?schema=public
     networks:
       - first-network
-    command: ['pnpm', 'run', 'start:prod']
 
 networks:
   first-network:
