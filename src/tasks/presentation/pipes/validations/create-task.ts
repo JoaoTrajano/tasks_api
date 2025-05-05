@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { ZodValidationPipe } from '@/shared/pipes/zod-validation';
 
 const createTaskSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
+  title: z.string().min(1, 'Title is required teste'),
   description: z.string().min(1, 'Description is required'),
 });
 

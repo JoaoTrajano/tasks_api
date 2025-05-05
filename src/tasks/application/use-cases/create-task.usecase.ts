@@ -20,7 +20,7 @@ export class CreateTaskUseCase
   async execute(
     input: CreateTaskUseCaseInput,
   ): Promise<CreateTaskUseCaseOutput> {
-    if (!input.title) throw new Error('Title is required');
+    if (!input.title) throw new Error('Title is required teste');
     if (!input.description) throw new Error('Description is required');
 
     const task = new TaskEntity(input.description, input.title);
