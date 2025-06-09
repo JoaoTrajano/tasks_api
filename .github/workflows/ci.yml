@@ -15,5 +15,12 @@ jobs:
         with:
           node-version: 22.11.0
           cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm run test
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run tests
+        run: pnpm run test
