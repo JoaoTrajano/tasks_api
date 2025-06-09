@@ -1,4 +1,5 @@
 name: 'CI'
+
 on:
   push:
     branches:
@@ -26,16 +27,26 @@ jobs:
       - name: Run tests
         run: pnpm run test
 
+      - name: Login Into the container registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Generate Tag
         id: generate_tag
         run: |
           SHA=$(echo $GITHUB_SHA | head -c7)
           echo "sha=$SHA" >> $GITHUB_OUTPUT
 
-      - name: Docker image build
-        run: docker build -t joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }} .
+      - name: Final
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }}, joaotrajanosouza/tasks_api:latest
 
-      - name: Push image
-        run: |
-          docker login -u joaotrajanosouza -p ${{ secrets.DOCKERHUB_TOKEN }}
-          docker push joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }}
+      # - name: Docker image build
+      #   run: docker build -t joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }} .
+
+      # - name: Push image
+      #   run: docker push joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }}
