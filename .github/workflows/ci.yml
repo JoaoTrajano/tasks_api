@@ -4,8 +4,11 @@ on:
   push:
     branches:
       - main
+
 jobs:
-  name: 'Build and Push'
-  runs-on: 'ubuntu-latest'
-  steps:
-    - uses: actions/checkout@v4
+  build:
+    name: 'Build and Push'
+    runs-on: 'ubuntu-latest'
+
+    steps:
+      - uses: actions/checkout@v4
