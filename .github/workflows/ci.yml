@@ -26,6 +26,12 @@ jobs:
       - name: Run tests
         run: pnpm run test
 
+      - name: Login Into the container registry
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Generate Tag
         id: generate_tag
         run: |
@@ -33,4 +39,7 @@ jobs:
           echo "sha=$SHA" >> $GITHUB_OUTPUT
 
       - name: Docker image build
-        run: docker build -t tasks_api:${{ steps.generate_tag.outputs.sha }} .
+        run: docker build -t joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }} .
+
+      - name: Push image
+        run: docker push joaotrajanosouza/tasks_api:${{ steps.generate_tag.outputs.sha }}
