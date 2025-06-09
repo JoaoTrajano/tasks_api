@@ -1,5 +1,9 @@
 name: 'CI'
 
+on:
+  push:
+    branches:
+      - main
 jobs:
   name: 'Build and Push'
   runs-on: 'ubuntu-latest'
