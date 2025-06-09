@@ -26,5 +26,9 @@ jobs:
       - name: Run tests
         run: pnpm run test
 
+      - name: Generate Tag
+        run: |
+          SHA=$(echo GITHUB_SHA | head -c7)
+
       - name: Docker image build
         run: docker build -t tasks_api .
