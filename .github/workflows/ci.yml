@@ -27,8 +27,10 @@ jobs:
         run: pnpm run test
 
       - name: Generate Tag
+        id: generate_tag
         run: |
           SHA=$(echo GITHUB_SHA | head -c7)
+          echo "sha=$SHA" >> GITHUB_OUTPUT
 
       - name: Docker image build
-        run: docker build -t tasks_api .
+        run: docker build -t tasks_api:${{ steps.generate_tag.outputs.sha }} .
