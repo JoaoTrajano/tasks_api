@@ -7,16 +7,19 @@ jobs:
   build:
     name: 'Build and Push'
     runs-on: 'ubuntu-latest'
+    strategy:
+      matrix:
+        node: [16, 18, 22]
     steps:
       - uses: actions/checkout@v4
 
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Setup Node
+      - name: Setup Node on version ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
-          node-version: 22.11.0
+          node-version: ${{ matrix.node }}
           cache: 'pnpm'
 
       - name: Install dependencies
